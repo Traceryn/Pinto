@@ -1,0 +1,70 @@
+name: ✨ Feature request
+description: Suggest a new capability, endpoint, or improvement for Pinto.
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Have an idea that would make Pinto more useful? Describe it below.
+        Keep in mind Pinto is **read-only by design** — requests for posting,
+        following, saving, or messaging on a user's behalf are out of scope.
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Pre-flight checklist
+      options:
+        - label: I have searched existing issues/discussions and this isn't already requested.
+          required: true
+        - label: This is a read-side or tooling improvement consistent with Pinto's read-only scope.
+          required: true
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Which area does this relate to?
+      options:
+        - New read endpoint (e.g. related pins, comments, topics)
+        - Existing method improvement (getPin / getUser / getBoard / boardPins / userPins)
+        - Search (new scopes, filters, ranking)
+        - Media (new formats, streaming, thumbnails)
+        - Authentication & sessions (import, persistence, refresh)
+        - Scaling (gateway, pool, cache, limiter, adapters)
+        - Developer experience (types, docs, examples, errors)
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem / motivation
+      description: What are you trying to do that's hard or impossible today?
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed solution
+      description: Describe the API or behavior you'd like. A code sketch helps a lot.
+      render: ts
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Any workarounds or other approaches you've thought about.
+    validations:
+      required: false
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      description: Links, references, or examples from Pinterest's public surface.
+    validations:
+      required: false

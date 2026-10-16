@@ -1,0 +1,13 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "outDir": "lib/esm",
+    "rootDir": ".",
+    "declaration": true,
+    "declarationDir": "lib/esm"
+  },
+  "include": ["Pinth/**/*", "src/**/*"],
+  "exclude": ["src/_test_/**/*"]
+}

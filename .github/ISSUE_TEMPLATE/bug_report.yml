@@ -1,0 +1,149 @@
+name: 🐛 Bug report
+description: Report a problem with reading pins, boards, users, search, or media downloads.
+title: "[Bug]: "
+labels: ["bug", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to file a bug! Before submitting, please:
+        - Search [existing issues](https://github.com/Traceryn/Pinto/issues) to avoid duplicates.
+        - Review the [Disclaimer](https://github.com/Traceryn/Pinto#disclaimer). Pinto is a **read-only** tool — it cannot post, follow, save, or message on your behalf, and those are out of scope.
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Pre-flight checklist
+      options:
+        - label: I have searched existing issues and this is not a duplicate.
+          required: true
+        - label: I understand Pinto is read-only and this bug is about reading data or downloading media.
+          required: true
+        - label: I am using a pinned version in production (not the floating `latest`).
+          required: false
+
+  - type: input
+    id: pinto-version
+    attributes:
+      label: Pinto version
+      description: The exact version from `package.json` / `npm list @traceryn/pinto`.
+      placeholder: "0.1.0"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: node-version
+    attributes:
+      label: Node.js version
+      description: Output of `node --version`.
+      options:
+        - "18.x"
+        - "20.x"
+        - "22.x"
+        - "24.x"
+        - Other (describe below)
+    validations:
+      required: true
+
+  - type: dropdown
+    id: runtime
+    attributes:
+      label: Runtime
+      options:
+        - Node.js (server)
+        - Edge (Cloudflare Workers / Vercel Edge / Deno)
+        - Browser
+        - React Native / Expo
+        - Other (describe below)
+    validations:
+      required: true
+
+  - type: input
+    id: os
+    attributes:
+      label: Operating system
+      placeholder: "e.g. Ubuntu 22.04 / macOS 14 / Windows 11"
+    validations:
+      required: false
+
+  - type: dropdown
+    id: method
+    attributes:
+      label: Which API method is affected?
+      options:
+        - getPin
+        - getUser
+        - getBoard
+        - boardPins
+        - userPins
+        - search / searchAll
+        - downloadPinImage
+        - downloadPinVideo
+        - Sessions / cookie import (importCookies, setCookies)
+        - Scaling (SessionPool / createGateway / limiter / cache)
+        - Other / not sure
+    validations:
+      required: true
+
+  - type: dropdown
+    id: mode
+    attributes:
+      label: Anonymous or authenticated?
+      description: Authenticated means you supplied cookies and `pinto.isAuthenticated()` is true.
+      options:
+        - Anonymous (no cookies)
+        - Authenticated (cookies imported)
+        - Not sure
+    validations:
+      required: true
+
+  - type: input
+    id: subject-url
+    attributes:
+      label: The public pin / board / user URL (if relevant)
+      description: A real, publicly-viewable URL helps us reproduce. Never paste cookies or private data here.
+      placeholder: "https://www.pinterest.com/pin/<id>/ or https://pin.it/<short>"
+    validations:
+      required: false
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: Describe the actual behavior.
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect to happen?
+    validations:
+      required: true
+
+  - type: textarea
+    id: error
+    attributes:
+      label: Error output
+      description: |
+        The error name, `status`, `code`, and stack if available. Pinto throws typed errors: `NotFoundError` (404), `BlockedError` (403), `RateLimitError` (429), `NetworkError`, `ParseError`.
+      render: shell
+    validations:
+      required: false
+
+  - type: textarea
+    id: repro
+    attributes:
+      label: Minimal reproduction
+      description: The smallest snippet that reproduces the issue.
+      render: ts
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      description: Anything else — proxies, gateway/pool config, custom `fetch`, frequency, region, timing patterns, etc.
+    validations:
+      required: false

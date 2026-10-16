@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 💬 Ask a question / get help
+    url: https://github.com/Traceryn/Pinterest-sdk/discussions
+    about: Usage questions and "how do I…" threads — please use Discussions, not Issues.
+  - name: 🛡️ Security disclosure
+    url: https://github.com/Traceryn/Pinterest-sdk/security/advisories/new
+    about: Report a security vulnerability privately. Do not open a public issue.
+  - name: 📖 Read the docs / Disclaimer
+    url: https://github.com/Traceryn/Pinterest-sdk#disclaimer
+    about: Pinto is a read-only, unofficial tool. Not affiliated with Pinterest.

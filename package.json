@@ -1,0 +1,72 @@
+{
+  "name": "@traceryn/pinto",
+  "version": "1.0.0-pre.10",
+  "description": "A browser automation library for interacting with and scraping Pinterest Web",
+  "license": "MIT",
+  "author": "Corex Anthony",
+  "homepage": "https://github.com/Traceryn/Pinto/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Traceryn/Pinto.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Traceryn/Pinto/issues"
+  },
+  "type": "module",
+  "main": "./lib/cjs/src/index.js",
+  "module": "./lib/esm/src/index.js",
+  "types": "./lib/esm/src/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/esm/src/index.d.ts",
+      "import": "./lib/esm/src/index.js",
+      "require": "./lib/cjs/src/index.js"
+    }
+  },
+  "files": [
+    "lib"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "auto-changelog": {
+    "output": "CHANGELOG.md",
+    "commitPrefix": "- %s (%h)",
+    "unreleased": false
+  },
+  "scripts": {
+    "build": "npm run build:esm && npm run build:cjs && npm run build:markers",
+    "build:esm": "tsc -p tsconfig.esm.json",
+    "build:cjs": "tsc -p tsconfig.cjs.json",
+    "build:markers": "node scripts/make-markers.mjs",
+    "typecheck": "tsc --noEmit",
+    "example": "tsx Example/example.ts",
+    "test": "node --experimental-vm-modules ./node_modules/jest/bin/jest.js --testMatch \"**/*.test.ts\"",
+    "test:e2e": "node --experimental-vm-modules ./node_modules/jest/bin/jest.js --runInBand --forceExit --testMatch \"**/*.test-e2e.ts\"",
+    "prepublishOnly": "npm run typecheck && npm test && npm run build",
+    "lint": "eslint .",
+    "changelog:update": "auto-changelog update",
+    "release": "release-it"
+  },
+  "keywords": [
+    "pinterest",
+    "pinto",
+    "automation"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "devDependencies": {
+    "@types/jest": "^30.0.0",
+    "@types/node": "^20.0.0",
+    "auto-changelog": "^2.7.0",
+    "eslint": "^10.12.0",
+    "jest": "^30.5.2",
+    "release-it": "^21.1.1",
+    "ts-jest": "^29.4.14",
+    "tsx": "^4.0.0",
+    "typescript": "^5.5.0",
+    "typescript-eslint": "^8.71.2"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "module": "CommonJS",
+    "moduleResolution": "Node",
+    "outDir": "lib/cjs",
+    "rootDir": ".",
+    "declaration": false
+  },
+  "include": ["Pinth/**/*", "src/**/*"],
+  "exclude": ["src/_test_/**/*"]
+}
