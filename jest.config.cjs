@@ -8,7 +8,16 @@ module.exports = {
     "^(\\.{1,2}/.*)\\.js$": "$1",
   },
   transform: {
-    "^.+\\.[tj]sx?$": ["ts-jest", { isolatedModules: true }],
+    "^.+\\.[tj]sx?$": [
+      "ts-jest",
+      {
+        tsconfig: {
+          module: "CommonJS",
+          moduleResolution: "Node",
+          isolatedModules: true,
+        },
+      },
+    ],
   },
   clearMocks: true,
   verbose: true,
