@@ -60,7 +60,8 @@ export async function userPins(
     throw new NotFoundError("User not found: " + input);
   }
   const size = sizeOf(options, DEFAULT_SIZE);
-  const url = widgetUserPinsUrl(username, size);
+  const cursor = options && options.cursor ? options.cursor : undefined;
+  const url = widgetUserPinsUrl(username, size, cursor);
   const json = await fetchWidgetJson(session, url);
   const rows = readWidgetRows(json);
   const raws = pinRows(rows);

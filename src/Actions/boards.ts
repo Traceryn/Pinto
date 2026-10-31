@@ -66,7 +66,8 @@ export async function boardPins(
   const owner = cut >= 0 ? slug.slice(0, cut) : slug;
   const name = cut >= 0 ? slug.slice(cut + 1) : slug;
   const size = sizeOf(options, DEFAULT_SIZE);
-  const url = widgetBoardPinsUrl(owner, name, size);
+  const cursor = options && options.cursor ? options.cursor : undefined;
+  const url = widgetBoardPinsUrl(owner, name, size, cursor);
   const json = await fetchWidgetJson(session, url);
   const rows = readWidgetRows(json);
   const raws = pinRows(rows);

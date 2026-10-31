@@ -1,8 +1,41 @@
 import type { Pin, PinImage, PinnerBrief } from "../Shapes/pins.js";
 
+const NAMED_ENTITIES: Record<string, string> = {
+  "&amp;": "&",
+  "&lt;": "<",
+  "&gt;": ">",
+  "&quot;": '"',
+  "&apos;": "'",
+};
+
+export function decodeEntities(value: string): string {
+  if (value.indexOf("&") === -1) {
+    return value;
+  }
+  return value.replace(
+    /&(?:amp|lt|gt|quot|apos|#\d+|#x[0-9a-fA-F]+);/g,
+    function (match) {
+      const named = NAMED_ENTITIES[match];
+      if (named !== undefined) {
+        return named;
+      }
+      try {
+        const code =
+          match[2] === "x" || match[2] === "X"
+            ? parseInt(match.slice(3, -1), 16)
+            : parseInt(match.slice(2, -1), 10);
+        if (Number.isNaN(code) === false && code >= 0 && code <= 0x10ffff) {
+          return String.fromCodePoint(code);
+        }
+      } catch {}
+      return match;
+    },
+  );
+}
+
 function textOf(value: unknown): string {
   if (typeof value === "string") {
-    return value;
+    return decodeEntities(value);
   }
   return "";
 }
@@ -49,8 +82,9 @@ export function objectOf(value: unknown): Record<string, unknown> {
 export function firstText(values: unknown[]): string {
   for (const item of values) {
     if (typeof item === "string") {
-      if (item.length > 0) {
-        return item;
+      const decoded = decodeEntities(item);
+      if (decoded.length > 0) {
+        return decoded;
       }
     }
   }

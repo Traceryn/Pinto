@@ -192,7 +192,7 @@ const videos = await pinto.search("recipe", { scope: "videos" });
 // Manual pagination with the bookmark from the previous page.
 const page2 = await pinto.search("cats", {
   pageSize: 25,
-  bookmark: pins.bookmark,
+  cursor: pins.cursor,
 });
 
 // Stream every result across pages with an async generator.

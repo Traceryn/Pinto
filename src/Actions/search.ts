@@ -18,14 +18,24 @@ function sizeOf(options: PagingOptions | undefined): number {
   return DEFAULT_PAGE_SIZE;
 }
 
-function markOf(options: PagingOptions | undefined): string {
-  if (options && typeof options.bookmark === "string") {
-    return options.bookmark;
+function cursorOf(options: PagingOptions | undefined): string {
+  if (options && typeof options.cursor === "string") {
+    return options.cursor;
   }
   return "";
 }
 
-function toPage(items: unknown[], bookmark: string): Page<Pin> {
+function limitOf(options: PagingOptions | undefined): number | undefined {
+  if (options && typeof options.limit === "number") {
+    const n = Math.floor(options.limit);
+    if (n > 0) {
+      return n;
+    }
+  }
+  return undefined;
+}
+
+function toPage(items: unknown[], cursor: string): Page<Pin> {
   const pins: Pin[] = [];
   for (const item of items) {
     const pin = toPin(item);
@@ -34,8 +44,8 @@ function toPage(items: unknown[], bookmark: string): Page<Pin> {
     }
   }
   const page: Page<Pin> = { results: pins, hasMore: false };
-  if (bookmark.length > 0) {
-    page.bookmark = bookmark;
+  if (cursor.length > 0) {
+    page.cursor = cursor;
     page.hasMore = true;
   }
   return page;
@@ -48,7 +58,7 @@ export async function searchScoped(
   scope: SearchScope,
   options: PagingOptions | undefined,
 ): Promise<Page<Pin>> {
-  const mark = markOf(options);
+  const mark = cursorOf(options);
   const payload: Record<string, unknown> = {};
   payload["query"] = query;
   payload["scope"] = scope;
@@ -66,7 +76,12 @@ export async function searchScoped(
     save,
   );
   const feed = readFeed(json);
-  return toPage(feed.items, feed.bookmark);
+  const page = toPage(feed.items, feed.cursor);
+  const limit = limitOf(options);
+  if (limit !== undefined && page.results.length > limit) {
+    page.results = page.results.slice(0, limit);
+  }
+  return page;
 }
 
 export async function searchPins(
@@ -85,19 +100,19 @@ export async function* searchAll(
   scope: SearchScope = "pins",
   pageSize: number = DEFAULT_PAGE_SIZE,
 ): AsyncGenerator<Pin, void, undefined> {
-  let bookmark = "";
+  let cursor = "";
   let first = true;
-  while (first || bookmark.length > 0) {
+  while (first || cursor.length > 0) {
     const options: PagingOptions = { pageSize: pageSize };
-    if (bookmark.length > 0) {
-      options.bookmark = bookmark;
+    if (cursor.length > 0) {
+      options.cursor = cursor;
     }
     const page = await searchScoped(session, save, query, scope, options);
     first = false;
     for (const pin of page.results) {
       yield pin;
     }
-    bookmark = page.bookmark !== undefined ? page.bookmark : "";
+    cursor = page.cursor !== undefined ? page.cursor : "";
     if (page.hasMore === false) {
       return;
     }

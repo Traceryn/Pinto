@@ -27,9 +27,9 @@ export function readWidgetRows(json: unknown): unknown[] {
 
 export function readFeed(json: unknown): {
   items: unknown[];
-  bookmark: string;
+  cursor: string;
 } {
-  const out = { items: [] as unknown[], bookmark: "" };
+  const out = { items: [] as unknown[], cursor: "" };
   if (json === null || typeof json !== "object") {
     return out;
   }
@@ -56,11 +56,11 @@ export function readFeed(json: unknown): {
     }
     const innerBookmark = pickBookmark(feed);
     if (innerBookmark.length > 0) {
-      out.bookmark = innerBookmark;
+      out.cursor = innerBookmark;
     }
   }
-  if (out.bookmark.length === 0) {
-    out.bookmark = pickBookmark(body);
+  if (out.cursor.length === 0) {
+    out.cursor = pickBookmark(body);
   }
   return out;
 }

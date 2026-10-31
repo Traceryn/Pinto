@@ -1,12 +1,14 @@
+export type Cursor = string;
+
 export interface Page<T> {
   results: T[];
-  bookmark?: string;
+  cursor?: Cursor;
   hasMore: boolean;
 }
 
 export interface PagingOptions {
   limit?: number;
-  bookmark?: string;
+  cursor?: Cursor;
   pageSize?: number;
 }
 

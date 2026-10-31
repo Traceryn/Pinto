@@ -180,6 +180,20 @@ describe("endpoint URL builders", () => {
     const oddUrl = widgetBoardPinsUrl("a b", "c d", 5);
     expect(oddUrl).toContain("a%20b");
     expect(oddUrl).toContain("c%20d");
+
+    const boardWithCursor = widgetBoardPinsUrl("user", "board", 25, "cursor-123");
+    expect(boardWithCursor).toContain("bookmark=cursor-123");
+    expect(boardWithCursor).toContain("w=25");
+
+    const boardWithEmptyCursor = widgetBoardPinsUrl("user", "board", 25, "");
+    expect(boardWithEmptyCursor).not.toContain("bookmark=");
+
+    const userWithCursor = widgetUserPinsUrl("Corex2410", 25, "abc-def");
+    expect(userWithCursor).toContain("bookmark=abc-def");
+    expect(userWithCursor).toContain("w=25");
+
+    const userWithoutCursor = widgetUserPinsUrl("Corex2410", 25);
+    expect(userWithoutCursor).not.toContain("bookmark=");
   });
 });
 

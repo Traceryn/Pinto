@@ -358,9 +358,16 @@ export function widgetPinInfoUrl(ids: string[]): string {
   return widgetBase() + "/v3/pidgets/pins/info/?" + params.toString();
 }
 
-export function widgetUserPinsUrl(username: string, size: number): string {
+export function widgetUserPinsUrl(
+  username: string,
+  size: number,
+  bookmark?: string,
+): string {
   const params = new URLSearchParams();
   params.set("w", String(clampSize(size)));
+  if (bookmark && bookmark.length > 0) {
+    params.set("bookmark", bookmark);
+  }
   return (
     widgetBase() +
     "/v3/pidgets/users/" +
@@ -374,10 +381,14 @@ export function widgetBoardPinsUrl(
   owner: string,
   slug: string,
   size: number,
+  bookmark?: string,
 ): string {
   const path = encodeURIComponent(owner) + "/" + encodeURIComponent(slug);
   const params = new URLSearchParams();
   params.set("w", String(clampSize(size)));
+  if (bookmark && bookmark.length > 0) {
+    params.set("bookmark", bookmark);
+  }
   return (
     widgetBase() + "/v3/pidgets/boards/" + path + "/pins/?" + params.toString()
   );
