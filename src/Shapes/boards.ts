@@ -9,4 +9,13 @@ export interface Board {
   followers?: number;
   owner?: PinnerBrief;
   image?: string;
+  sections?: BoardSection[];
+}
+
+export interface BoardSection {
+  id: string;
+  name: string;
+  description?: string;
+  coverImage?: string;
+  pinCount?: number;
 }
