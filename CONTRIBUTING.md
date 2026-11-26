@@ -1,12 +1,12 @@
 # Contributing to Pinto
 
-Pinto is a read-only automation and scraping SDK for Pinterest, published as [`@traceryn/pinto`](https://www.npmjs.com/package/@traceryn/pinto).
+Pinto is a TypeScript SDK for interacting with Pinterest, published as [`@traceryn/pinto`](https://www.npmjs.com/package/@traceryn/pinto). The current prerelease focuses on reads; the planned API will also support user-directed actions such as posting and following.
 
 ## How to contribute
 
 1. Fork the repo and create a branch from `master`
 2. Make your change
-3. Run the quality gate: `npm run typecheck && npm test && npm run build`
+3. Run the quality gate: `npm run typecheck && npm test && npm run lint && npm run build`
 4. Commit using conventional commits (see below)
 5. Open a pull request against `master`
 
@@ -57,6 +57,14 @@ Example/       Single runnable example (example.ts)
 - No `console.log` in source outside of scripts/examples
 
 ## Testing
+
+Pull requests run the GitHub Actions test/typecheck, lint, and build workflows.
+These checks report results; they do not merge pull requests. A maintainer
+reviews the changes and merges them manually.
+Copilot review guidance for this repository is in `.github/copilot-instructions.md`.
+Enable Copilot code review in the repository's GitHub settings if you want AI
+review comments on pull requests; the instructions provide project context but
+do not enable that GitHub feature.
 
 ### Offline suite
 
@@ -109,4 +117,4 @@ Feature requests and bug reports use the templates in `.github/ISSUE_TEMPLATE/`.
 
 ## Security
 
-See [`SECURITY.md`](SECURITY.md) for disclosure policy. Pinto is read-only — it cannot post, follow, save, or message on your behalf.
+See [`SECURITY.md`](SECURITY.md) for the disclosure policy. Pinto's current prerelease focuses on read operations; planned versions will also support user-directed Pinterest actions.

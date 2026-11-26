@@ -47,7 +47,8 @@
     "prepublishOnly": "npm run typecheck && npm test && npm run build",
     "lint": "eslint .",
     "changelog:update": "auto-changelog update",
-    "release": "release-it"
+    "release": "release-it",
+    "bench": "tsx scripts/benchmarks/scale.ts"
   },
   "keywords": [
     "pinterest",

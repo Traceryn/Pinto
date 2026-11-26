@@ -35,6 +35,11 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Pack npm package
+        run: |
+          npm pack --pack-destination .
+          mv traceryn-pinto-*.tgz pinto.tgz
+
       - name: Publish to npm
         run: npm publish --access public --tag latest
 
@@ -44,5 +49,7 @@ jobs:
           generate_release_notes: true
           draft: false
           prerelease: false
+          files: pinto.tgz
+          fail_on_unmatched_files: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

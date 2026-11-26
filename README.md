@@ -35,8 +35,9 @@ If you'd like to financially support this project, you can do so by supporting t
 - **No browser required.** Pinto talks to Pinterest's public widget and resource
   endpoints directly over `fetch`. No Selenium, no Puppeteer, no half-gig of RAM
   spent driving Chromium.
-- **Read-only by design.** It fetches public pins, boards, profiles and search
-  results — nothing more. It never posts, follows, or messages on your behalf.
+- **Expanding beyond reads.** The current prerelease focuses on fetching public
+  pins, boards, profiles and search results. Pinto's planned API will also
+  support user-directed actions such as posting and following.
 - **Anonymous out of the box.** Every request is fingerprinted as a real device —
   a stable, randomly-selected browser profile (UA, `Accept-Language`,
   `sec-ch-ua`) is generated per session so each client reads as a distinct device
@@ -465,9 +466,9 @@ this application call upon the personal responsibility of its users to use this
 application in a fair way, as it is intended to be used. Use at your own
 discretion.
 
-This is a read-only research tool. It does not post, message, or otherwise act on
-your behalf, and it is not intended for spam, bulk abuse, or circumventing
-Pinterest's protections at scale.
+The current prerelease focuses on read operations; future versions are intended
+to support user-directed Pinterest actions. Pinto is not intended for spam, bulk
+abuse, or circumventing Pinterest's protections at scale.
 
 ## License
 
